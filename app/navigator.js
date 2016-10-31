@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import dismissKeyboard from 'react-native-dismiss-keyboard';
 import ShoppingList from './components/ShoppingList';
+import Login from './components/Login';
 import MainRouter from './router';
 import { connect } from 'react-redux';
 import { clearMessages } from './actions/MessageActions';
@@ -72,7 +73,7 @@ class MainNavigator extends Component {
           ref={view => this.navigator = view}
           initialRoute={{
             title: 'ColorCode',
-            component: ShoppingList,
+            component: Login,
             index: 0
           }}
           configureScene={this.configureScene.bind(this)}

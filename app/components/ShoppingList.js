@@ -29,9 +29,20 @@ class ShoppingList extends Component {
   }
 
   render() {
+
     return (
         <View style={styles.pageWrap}>
-          <Text>hello</Text>
+          {
+            this.props.product.results.map((prod, index) => {
+              return (
+                <View>
+                  <Text>{prod.name}</Text>
+                  <Text>{prod.quantity}</Text>
+                  <Text>{prod.image}</Text>
+                </View>
+              )
+            })
+          }
         </View>
     )
   }
@@ -50,5 +61,6 @@ ShoppingList.propTypes = propTypes;
 
 export default connect(
   (state) => ({
+    product: state.product
   })
 )(ShoppingList);

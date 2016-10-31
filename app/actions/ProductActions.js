@@ -57,7 +57,7 @@ const listProductRequest = () => ({
 
 const listProductSuccess = (response) => ({
   type: LIST_PRODUCT_SUCCESS,
-  result: response
+  results: response
 });
 
 const listProductFailure = () => ({
@@ -66,6 +66,7 @@ const listProductFailure = () => ({
 
 export const listProduct = (apikey, router) => {
   return (dispatch, getState) => {
+    console.log('called')
     dispatch(listProductRequest());
     dispatch(toggleIsLoading(true));
     ProductService.req.listProduct(apikey)

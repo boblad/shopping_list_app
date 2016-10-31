@@ -17,9 +17,11 @@ import {
 } from '../constants/ProductConstants';
 
 const initialState = {
+  results: [],
+  result: {}
 };
 
-export default function message(state = initialState, action) {
+export default function product(state = initialState, action) {
   switch (action.type) {
   case RETRIEVE_PRODUCT_FAILURE:
     return {
@@ -28,12 +30,12 @@ export default function message(state = initialState, action) {
   case LIST_PRODUCT_REQUEST:
     return {
       ...state,
-      result: null
+      results: []
     };
   case LIST_PRODUCT_SUCCESS:
     return {
       ...state,
-      result: action.result
+      results: action.results
     };
   default:
     return state;
