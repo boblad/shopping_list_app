@@ -4,6 +4,7 @@ let req = {};
 
 req.listProduct = (userToken) => {
   let url = `/products/`;
+  console.log('uerw', userToken)
   return Request.protectedGet(url, userToken)
   .then(data => data)
 }

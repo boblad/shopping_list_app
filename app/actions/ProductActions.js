@@ -57,7 +57,7 @@ const listProductRequest = () => ({
 
 const listProductSuccess = (response) => ({
   type: LIST_PRODUCT_SUCCESS,
-  results: response
+  results: response.results
 });
 
 const listProductFailure = () => ({

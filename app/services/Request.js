@@ -13,6 +13,7 @@ import config from '../config';
 let request = {};
 
 function handleErrors(res) {
+  console.log('res', res)
   if (res.ok) {
     return res;
   }
@@ -59,11 +60,12 @@ request.post = function (url, body, userToken = null) {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      Authorization: tokenString,
+      // Authorization: tokenString,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
   };
+  console.log(apiUrl, fetchOptions)
   return fetch(apiUrl, fetchOptions)
     .then(handleErrors)
     .then(res=>res.json());
@@ -145,25 +147,23 @@ request.put = function (url, body, userToken = null) {
 
 request.protectedGet = function (url, userToken = null, params) {
   let apiUrl = `${config.api_url}${url}`;
-  // let jwt = config.dev_api_key;
-  // if (params) {
-  //   apiUrl = `${apiUrl}${queryString.stringify(params)}`;
-  // }
-  // let tokenString = '';
-  // if (jwt && userToken) {
-  //   tokenString = `Token token=${jwt}:${userToken}`;
-  // } else if (jwt !== '') {
-  //   tokenString = `Token token=${jwt}`;
-  // } else {
-  //   tokenString = ``;
-  // }
+  if (params) {
+    apiUrl = `${apiUrl}${queryString.stringify(params)}`;
+  }
+  let tokenString = '';
+  if (userToken) {
+    tokenString = `Token ${userToken}`;
+  } else {
+    tokenString = ``;
+  }
   let fetchOptions = {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      // Authorization: tokenString
+      Authorization: tokenString
     }
   };
+  console.log(apiUrl, fetchOptions)
   return fetch(apiUrl, fetchOptions)
     .then(handleErrors)
     .then(res=>res.json());

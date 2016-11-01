@@ -3,6 +3,8 @@ import {
   FLOAT_FROM_LEFT,
   FLOAT_FROM_BOTTOM
 } from './constants/TransitionConstants';
+import ShoppingList from './components/ShoppingList';
+import CameraView from './components/CameraView';
 
 export default class MainRouter {
   constructor(navigator) {
@@ -28,5 +30,20 @@ export default class MainRouter {
   //     transition: transition
   //   })
   // }
+  toHome(transition = FLOAT_FROM_RIGHT) {
+    this.push({}, {
+      title: 'Home',
+      component: ShoppingList,
+      transition: transition
+    })
+  }
+
+  toCamera(transition = FLOAT_FROM_RIGHT) {
+    this.push({}, {
+      title: 'Camera',
+      component: CameraView,
+      transition: transition
+    })
+  }
 
 }

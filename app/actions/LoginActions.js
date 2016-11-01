@@ -1,4 +1,6 @@
 import LoginService from '../services/LoginService';
+import { toggleIsLoading } from './LoadActions';
+import { setErrorMessage } from './MessageActions';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -11,7 +13,7 @@ const loginRequest = () => ({
 
 const loginSuccess = (response) => ({
   type: LOGIN_SUCCESS,
-  results: response
+  key: response.key
 });
 
 const loginFailure = () => ({
@@ -23,13 +25,16 @@ export const login = (router, username, password) => {
     console.log('called')
     dispatch(loginRequest());
     dispatch(toggleIsLoading(true));
+    console.log('here')
     LoginService.req.loginUser(username, password)
     .then((response) => {
       console.log('response', response)
       dispatch(loginSuccess(response));
+      router.toHome()
       dispatch(toggleIsLoading(false));
     })
     .catch((error) => {
+      console.log('err', error)
       dispatch(setErrorMessage(error.message));
       dispatch(loginFailure());
       dispatch(toggleIsLoading(false));

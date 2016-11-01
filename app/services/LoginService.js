@@ -2,11 +2,11 @@ import Request from './Request';
 
 let req = {};
 
-req.listProduct = (username, password) => {
-  let url = `/rest-auth/`;
+req.loginUser = (email, password) => {
+  let url = `/auth/login/`;
   let body = {
-    username: username,
-    password: password
+    email: 'bryantoblad1@gmail.com',
+    password: 'poncacity'
   }
   return Request.post(url, body)
   .then(data => data)

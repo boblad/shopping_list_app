@@ -5,7 +5,7 @@ import {
 } from '../constants/LoginConstants';
 
 const initialState = {
-
+  apikey: null
 };
 
 export default function login(state = initialState, action) {
@@ -17,6 +17,7 @@ export default function login(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        apikey: action.key
       };
     case LOGIN_FAILURE:
       return {

@@ -25,24 +25,30 @@ class ShoppingList extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(listProduct());
+    this.props.dispatch(listProduct(this.props.login.apikey));
   }
 
   render() {
 
     return (
         <View style={styles.pageWrap}>
+          <Text>List</Text>
           {
             this.props.product.results.map((prod, index) => {
               return (
-                <View>
-                  <Text>{prod.name}</Text>
-                  <Text>{prod.quantity}</Text>
-                  <Text>{prod.image}</Text>
+                <View style={styles.productWrap} key={index}>
+                  <View style={styles.leftWrap}>
+                    <Image style={styles.image} source={{url: prod.image}} resizeMode="contain"/>
+                    <Text style={styles.name}>{prod.name}</Text>
+                  </View>
+                  <Text style={styles.quatity}>Quantity: {prod.quantity}</Text>
                 </View>
               )
             })
           }
+          <TouchableOpacity onPress={() => this.props.router.toCamera()}>
+            <Text>Camera</Text>
+          </TouchableOpacity>
         </View>
     )
   }
@@ -53,14 +59,42 @@ var styles = StyleSheet.create({
     width: WIDTH,
     height: HEIGHT - MENU_HEIGHT,
     marginTop: MENU_HEIGHT,
-    backgroundColor: GREY
-  }
+    backgroundColor: GREY,
+    justifyContent: 'flex-start',
+  },
+  image: {
+    width: 50,
+    height: 50
+  },
+  name: {
+    marginLeft: 5,
+    color: WHITE,
+  },
+  leftWrap: {
+    width: WIDTH / 2,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  productWrap: {
+    width: WIDTH,
+    height: 50,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: WHITE
+  },
+  quatity: {
+    color: WHITE,
+  },
 });
 
 ShoppingList.propTypes = propTypes;
 
 export default connect(
   (state) => ({
-    product: state.product
+    product: state.product,
+    login: state.login
   })
 )(ShoppingList);
